@@ -1,0 +1,46 @@
+---
+title: "exercise-05"
+format: html
+Author: Yen Do
+---
+
+## Challenge 1
+
+```{r}
+library(tidyverse)
+library(dplyr)
+```
+
+Step 1: Loading dataset
+
+```{r}
+d <- read.csv("https://raw.githubusercontent.com/difiore/ada-datasets/main/IMDB-movies.csv", header = TRUE)
+head(d)
+```
+
+Step 2
+```{r}
+e <- d %>% 
+  filter(startYear>= 1920 & startYear<= 1979, runtimeMinutes>= 60 & runtimeMinutes <= 180) %>%
+  mutate(decade = paste(substr(startYear,3,3),"0s"))
+```
+
+Step 3
+```{r}
+p <- hist(e$runtimeMinutes) 
+p <- p + facet_wrap(e$decade, ncol = 3)
+```
+
+Step 4
+```{r}
+results <- e %>%
+  group_by(decade) %>%
+  summarise(mean = mean(runtimeMinutes),
+            sd = sd(runtimeMinutes))
+```
+
+Step 5
+```{r}
+
+```
+
